@@ -112,6 +112,11 @@ TEE_Result TA_InvokeCommandEntryPoint(void *sess_ctx, uint32_t cmd_id,
 			IMSG("membuf test : Fail! (mismatch string)\n");
 			return TEE_ERROR_BAD_PARAMETERS;
 		}
+
+		if (params[2].memref.size > strlen(output)) {
+			return TEE_ERROR_BAD_PARAMETERS;
+		}
+
 		TEE_MemMove(params[2].memref.buffer,
 			    output, params[2].memref.size);
 		return TEE_SUCCESS;
